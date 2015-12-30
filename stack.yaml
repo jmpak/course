@@ -6,7 +6,7 @@ resolver: lts-3.19
 # Local packages, usually specified by relative directory name
 packages:
 - '.'
-- projects/NetworkServer/haskell/
+# - projects/NetworkServer/haskell/
 
 # Packages to be pulled from upstream that are not in the resolver (e.g., acme-missiles-0.3)
 extra-deps: []
@@ -15,8 +15,8 @@ extra-deps: []
 flags:
   course:
     small_base: true
-  network-server:
-    small_base: true
+  # network-server:
+  #   small_base: true
 
 # Extra package databases containing global packages
 extra-package-dbs: []
