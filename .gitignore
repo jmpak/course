@@ -28,3 +28,5 @@ TAGS
 
 *.swp
 
+# STACK
+.stack-work
