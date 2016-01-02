@@ -320,7 +320,7 @@ produce f a = a :. (produce f (f a))
 notReverse ::
   List a
   -> List a
-notReverse = error "not possible"
+notReverse = reverse
 
 ---- End of list exercises
 
