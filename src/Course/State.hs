@@ -148,7 +148,7 @@ firstRepeat ::
   Ord a =>
   List a
   -> Optional a
-firstRepeat as = eval (findM (\a -> (State (\s -> ((S.member a s), (S.insert a s))))) as) S.empty
+firstRepeat = listWithState' findM S.member
 
 -- | Remove all duplicate elements in a `List`.
 -- /Tip:/ Use `filtering` and `State` with a @Data.Set#Set@.
@@ -160,13 +160,14 @@ distinct ::
   Ord a =>
   List a
   -> List a
-distinct as = eval (filtering (\a -> (State ((S.notMember a) &&& (S.insert a)))) as) S.empty
--- distinct a = distinct' Nil a
---   where
---     distinct' p Nil = p
---     distinct' p (h :. t) = case find (==h) p of
---                             Empty -> distinct' (h :. p) t
---                             _ -> distinct' p t
+distinct = listWithState' filtering S.notMember 
+
+listWithState' :: Ord a1 => 
+  ((a1 -> State (S.Set a1) a2) -> t -> State (S.Set a3) a)
+  -> (a1 -> S.Set a1 -> a2)
+  -> t
+  -> a
+listWithState' f p as = eval (f (\a -> (State ((p a) &&& (S.insert a)))) as) S.empty
 
 listWithState :: Ord a1 => 
   ((a1 -> State (S.Set a1) a2) -> t -> State (S.Set a3) a)
